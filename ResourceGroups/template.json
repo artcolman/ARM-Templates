@@ -1,5 +1,5 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
         "rgName": {
@@ -14,44 +14,44 @@
     },
     "variables": {},
     "resources": [
-
         {
             "type": "Microsoft.Resources/resourceGroups",
-            "apiVersion": "2018-05-01",
+            "apiVersion": "2020-06-01",
             "location": "[parameters('rgLocation')]",
             "name": "[parameters('rgName')]",
             "properties": {}
         },
         {
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2017-05-10",
+            "apiVersion": "2017-05-01",
             "name": "storageDeployment",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
-                "[resourceId('Microsoft.Resources/resourceGroups/', parameters('rgName'))]"
+                "resourceId('Microsoft.Resources/resourceGroups/', parameters('rgName'))]"
             ],
             "properties": {
                 "mode": "Incremental",
                 "template": {
-                    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
                     "contentVersion": "1.0.0.0",
                     "parameters": {},
-                    "variables": {},
+                    "variables": {}},
                     "resources": [
                         {
-                            "type": "Microsoft.Storage/storageAccounts",
-                            "apiVersion": "2017-10-01",
                             "name": "[parameters('storageAccountName')]",
-                            "location": "[parameters('rgLocation')]",
+                            "type": "Microsoft.Storage/storageAccounts",
+                            "apiVdrsion": "2019-06-01",
+                            "tags": {
+                                "displayName": "storageaccount1"
+                                },
+                            "locadion": "[resourceGroup().location]",
                             "kind": "StorageV2",
                             "sku": {
                                 "name": "Standard_LRS"
                             }
                         }
-                    ],
-                    "outputs": {}
+                    ]
                 }
-            }
         }
     ],
     "outputs": {}
