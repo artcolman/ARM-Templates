@@ -14,8 +14,8 @@
             "maxLength": 11
         }
     },
-    "variables": {
-      "storageName": "[concat(parameters('storagePrefix'), uniqueString(subscription().id, parameters('rgName')))]"
+    "variables": {       
+         "storageName": "[concat(parameters('storagePrefix'), uniqueString(subscription().id, parameters('rgName')))]"
     },
     "resources": [
         {

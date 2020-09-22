@@ -7,16 +7,11 @@
         },
         "rgLocation": {
             "type": "string"
-        },
-        "storagePrefix": {
-            "type": "string",
-            "minLength": 3,
-            "maxLength": 11
         }
     },
     "variables": {
-      "storageName": "[concat(parameters('storagePrefix'), uniqueString(subscription().id, parameters('rgName')))]"
-    },
+        "link_storageAccount": "https://github.com/artcolman/ARM-Templates/blob/master/StorageAccounts/StorageAccounts.json"
+     },
     "resources": [
         {
             "type": "Microsoft.Resources/resourceGroups",
@@ -38,29 +33,15 @@
                     "scope": "outer"
                 },
                 "mode": "Incremental",
-                "template": {
-                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-                    "contentVersion": "1.0.0.0",
-                    "parameters": {},
-                    "variables": {},
-                    "resources": [
-                        {
-                            "type": "Microsoft.Storage/storageAccounts",
-                            "name": "[variables('storageName')]",
-                            "apiVersion": "2019-06-01",
-                            "tags": {
-                                "displayName": "storageaccount1"
-                                },
-                            "location": "[parameters('rgLocation')]",
-                            "kind": "StorageV2",
-                            "sku": {
-                                "name": "Standard_LRS"
-                            }
-                        }
-                    ]
+                "templateLink": {
+                    "uri": "[variables('link_storageAccount')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parameters": {
+
+                    }
                 }
             }
-        }
     ],
     "outputs": {}
 }
