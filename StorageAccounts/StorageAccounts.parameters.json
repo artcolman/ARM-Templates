@@ -5,8 +5,13 @@
       "rgName":{
         "value": "rgName-Marker"
       },
+
       "rgLocation":{
         "value": "rgLocation-Marker"
-      } 
+      },
+
+      "storagePrefix":{
+        "value": "sP-Marker"
+      }
     }
   }

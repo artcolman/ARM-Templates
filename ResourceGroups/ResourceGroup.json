@@ -10,19 +10,20 @@
         }
     },
     "variables": {
-        "link_storageAccount": "https://github.com/artcolman/ARM-Templates/blob/master/StorageAccounts/StorageAccounts.json"
+        "link_storageAccounts": "https://github.com/artcolman/ARM-Templates/blob/master/StorageAccounts/StorageAccounts.json",
+        "link_storageAccountsParameters": "https://github.com/artcolman/ARM-Templates/blob/master/StorageAccounts/StorageAccounts.parameters.json"
      },
     "resources": [
         {
             "type": "Microsoft.Resources/resourceGroups",
-            "apiVersion": "2020-06-01",
+            "apiVersion": "2018-05-01",
             "location": "[parameters('rgLocation')]",
             "name": "[parameters('rgName')]",
             "properties": {}
         },
         {
             "type": "Microsoft.Resources/deployments",
-            "apiVersion": "2017-05-01",
+            "apiVersion": "2019-10-01",
             "name": "storageDeployment",
             "resourceGroup": "[parameters('rgName')]",
             "dependsOn": [
@@ -34,14 +35,15 @@
                 },
                 "mode": "Incremental",
                 "templateLink": {
-                    "uri": "[variables('link_storageAccount')]",
+                    "uri": "[variables('link_storageAccounts')]",
                     "contentVersion": "1.0.0.0"
                 },
-                "parameters": {
-
-                    }
+                "parametersLink": {
+                    "uri": "[variables('link_storageAccountsParameters')]",
+                    "contentVersion": "1.0.0.0"
                 }
             }
+        }
     ],
     "outputs": {}
 }
