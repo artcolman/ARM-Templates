@@ -3,15 +3,15 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
       "rgName":{
-        "value": "rgName-Marker"
+        "value": "rg-pshell-test-eastus-001"
       },
 
       "rgLocation":{
-        "value": "rgLocation-Marker"
+        "value": "eastus"
       },
 
       "storagePrefix":{
-        "value": "sP-Marker"
+        "value": "st"
       }
     }
   }
