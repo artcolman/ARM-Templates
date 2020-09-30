@@ -1,0 +1,49 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "rgName": {
+            "type": "string"
+        },
+        "rgLocation": {
+            "type": "string"
+        }
+    },
+    "variables": {
+        "link_storageAccounts": "https://github.com/artcolman/ARM-Templates/blob/master/StorageAccounts/StorageAccounts.json",
+        "link_storageAccountsParameters": "https://github.com/artcolman/ARM-Templates/blob/master/StorageAccounts/StorageAccounts.parameters.json"
+     },
+    "resources": [
+        {
+            "type": "Microsoft.Resources/resourceGroups",
+            "apiVersion": "2018-05-01",
+            "location": "[parameters('rgLocation')]",
+            "name": "[parameters('rgName')]",
+            "properties": {}
+        },
+        {
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2019-10-01",
+            "name": "storageDeployment",
+            "resourceGroup": "[parameters('rgName')]",
+            "dependsOn": [
+                "[parameters('rgName')]"
+            ],
+            "properties": {
+                "expressionEvaluationOptions": {
+                    "scope": "outer"
+                },
+                "mode": "Incremental",
+                "templateLink": {
+                    "uri": "[variables('link_storageAccounts')]",
+                    "contentVersion": "1.0.0.0"
+                },
+                "parametersLink": {
+                    "uri": "[variables('link_storageAccountsParameters')]",
+                    "contentVersion": "1.0.0.0"
+                }
+            }
+        }
+    ],
+    "outputs": {}
+}
