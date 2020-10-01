@@ -2,17 +2,18 @@
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
     "parameters": {
-        "rgName": {
+        "stName": {
             "type": "string"
         },
-        "rgLocation": {
-            "type": "string"
+        "stLocation": {
+            "type": "string",
+            "defaultValue": "[resourceGroup().location]"
         },
-        "stAccountType": {
+        "stType": {
             "type": "string",
             "defaultValue": "Standard_LR5",
             "allowedValues": [
-                "stAccountType-Marker",
+                "stType-Marker",
                 "Standard_LR5",
                 "Standard_GR5",
                 "Standard_ZRS",
@@ -21,28 +22,21 @@
             "metadata": {
                 "description": "Storage Account Type"
             }
-        },
-        "stPrefix": {
-            "type": "string",
-            "minLength": 3,
-            "maxLength": 11
         }
     },
-    "variables": {       
-         "stAccountName": "[concat(parameters('stPrefix'), uniqueString(subscription().id, parameters('rgName')))]"
-    },
+    "variables": {},
     "resources": [
         {
             "type": "Microsoft.Storage/storageAccounts",
-            "name": "[variables('stAccountName')]",
+            "name": "[parameters('stName')]",
             "apiVersion": "2019-06-01",
             "tags": {
                 "displayName": "storageaccount1"
                 },
-            "location": "[parameters('rgLocation')]",
+            "location": "[parameters('stLocation')]",
             "kind": "StorageV2",
             "sku": {
-                "name": "[parameters('stAccountType')]",
+                "name": "[parameters('stType')]",
             "properties": {}
             }
         }
@@ -50,7 +44,7 @@
     "outputs": {
         "storageAccountName": {
             "type": "string",
-            "value": "[variables('stAccountName')]"
+            "value": "[parameters('stName')]"
         }
     }
 }
