@@ -1,0 +1,55 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "rgName": {
+            "type": "string"
+        },
+        "rgLocation": {
+            "type": "string"
+        },
+        "stAccountType": {
+            "type": "string",
+            "defaultValue": "Standard_LR5",
+            "allowedValues": [
+                "Standard_LR5",
+                "Standard_GR5",
+                "Standard_ZRS",
+                "Premium_LR5"
+            ],
+            "metadata": {
+                "description": "Storage Account Type"
+            }
+        },
+        "stPrefix": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 11
+        }
+    },
+    "variables": {       
+         "stAccountName": "[concat(parameters('stPrefix'), uniqueString(subscription().id, parameters('rgName')))]"
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "name": "[variables('stAccountName')]",
+            "apiVersion": "2019-06-01",
+            "tags": {
+                "displayName": "storageaccount1"
+                },
+            "location": "[parameters('rgLocation')]",
+            "kind": "StorageV2",
+            "sku": {
+                "name": "[parameters('stAccountType')]",
+            "properties": {}
+            }
+        }
+    ],
+    "outputs": {
+        "storageAccountName": {
+            "type": "string",
+            "value": "[variables('stAccountName')]"
+        }
+    }
+}

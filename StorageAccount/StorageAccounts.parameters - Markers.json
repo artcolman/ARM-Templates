@@ -10,8 +10,12 @@
         "value": "rgLocation-Marker"
       },
 
-      "storagePrefix":{
-        "value": "sP-Marker"
+      "stAccountType": {
+          "value": "stAccountType-Marker"
+      },
+
+      "stPrefix":{
+        "value": "stP-Marker"
       }
     }
   }
